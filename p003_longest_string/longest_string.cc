@@ -12,6 +12,7 @@
 #include <vector>
 using namespace std;
 
+// two pointers, sliding window
 class Solution {
   public:
     int lengthOfLongestSubstring(string s) {
