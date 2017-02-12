@@ -20,12 +20,12 @@ class Solution {
         string ans;
         if (n == 0) return ans;
         deque<char> str;
-        do {
+        while (n > 0) {
             n = n - 1;
             char c = 'A' + n % 26;
             n = n / 26;
             str.push_front(c);
-        } while (n > 0);
+        }
         for (auto &c : str) {
             ans.push_back(c);
         }
