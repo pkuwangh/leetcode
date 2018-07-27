@@ -1,0 +1,5 @@
+P126: Word Ladder 2
+    -- the high-level idea is to (1) find minimum length using BFS and (2) find all solutions using DFS/back-tracking.
+    -- the BFS process is fast with a straightforward implementation because we can prune the word list along the way;
+    -- during the DFS process, it will be super slow if we don't prune the word list;
+    -- the key is to save the pruned word list for each level/step
