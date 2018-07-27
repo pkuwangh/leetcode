@@ -3,3 +3,7 @@ P126: Word Ladder 2
     -- the BFS process is fast with a straightforward implementation because we can prune the word list along the way;
     -- during the DFS process, it will be super slow if we don't prune the word list;
     -- the key is to save the pruned word list for each level/step
+
+P041: First Missing Positive
+    -- un-ordered array, normally need use a hash table
+    -- with constant space, use the array itself as a constant space A[n] = n-1
