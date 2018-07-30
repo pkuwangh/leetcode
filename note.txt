@@ -4,6 +4,10 @@ P126: Word Ladder 2
     -- during the DFS process, it will be super slow if we don't prune the word list;
     -- the key is to save the pruned word list for each level/step
 
+P037: Sudoku Solver
+    -- DFS; at each (row, col), find candidates based on rules
+
 P041: First Missing Positive
     -- un-ordered array, normally need use a hash table
     -- with constant space, use the array itself as a constant space A[n] = n-1
+
