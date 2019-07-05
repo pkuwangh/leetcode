@@ -11,3 +11,6 @@ P041: First Missing Positive
     -- un-ordered array, normally need use a hash table
     -- with constant space, use the array itself as a constant space A[n] = n-1
 
+P207: Course Schedule
+    -- cycle detection in directed graph
+    -- DFS w/ help three sets, i.e. unvisited white set, visiting gray set, finished black set
