@@ -14,10 +14,48 @@
  * There is only one duplicate number in the array, but it could be repeated more than once.
 */
 
+#include <iostream>
+#include <cassert>
+#include <vector>
+using namespace std;
+
 class Solution {
   public:
     int findDuplicate(vector<int>& nums) {
-
+        // we can try duplicated number from 1 to max
+        // each trial involves one scan iteration O(n)
+        // we can do a binary search
+        int low = 1;
+        int high = nums.size() - 1;
+        while (low < high) {
+            int med = (low + high) / 2;
+            // count how many numbers lower than med
+            int count = 0;
+            for (const auto& x : nums) {
+                if (x <= med) {
+                    ++ count;
+                }
+            }
+            if (count > med) {
+                high = med;
+            } else {
+                low = med + 1;
+            }
+        }
+        return low;
     }
 };
 
+int main() {
+    Solution obj;
+    auto run = [&](vector<int> nums)->void {
+        for (auto& n : nums) {
+            cout << n << " ";
+        }
+        cout << endl << obj.findDuplicate(nums) << endl;
+    };
+    run({1,3,4,2,2});
+    run({3,1,3,4,2});
+    run({2,2,2,2,2});
+    return 0;
+}
