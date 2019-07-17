@@ -31,6 +31,7 @@ class Solution {
   public:
     int countNodes(TreeNode* root) {
         // bfs
+        /*
         queue<TreeNode*> bfs_q;
         if (root == nullptr) return 0;
         int count = 0;
@@ -47,6 +48,28 @@ class Solution {
             }
         }
         return count;
+        */
+
+        // recursively adds sub- complete binary tree
+        if (root == nullptr) return 0;
+        int left_depth = 0;
+        int right_depth = 0;
+        TreeNode* node = root;
+        while (node) {
+            node = node->left;
+            ++ left_depth;
+        }
+        node = root;
+        while (node) {
+            node = node->right;
+            ++ right_depth;
+        }
+        // if it is a complete tree
+        if (left_depth == right_depth) {
+            return (1 << left_depth) - 1;
+        } else {
+            return 1 + countNodes(root->left) + countNodes(root->right);
+        }
     }
 };
 
