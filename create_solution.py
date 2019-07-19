@@ -18,7 +18,7 @@ if __name__ == '__main__':
     with open(os.path.join(dirname, 'Makefile'), 'w') as fpw:
         with open(os.path.join('templates', 'Makefile'), 'r') as fpr:
             for line in fpr:
-                line.replace('filename', filename)
+                line = line.replace('filename', filename)
                 fpw.write(line)
 
     with open(os.path.join(dirname, '%s.cc' % (filename)), 'w') as fpw:
