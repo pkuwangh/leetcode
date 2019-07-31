@@ -37,13 +37,15 @@ class Solution {
         vector<int> min_range;
         // some sanity check
         if (nums.size() == 0) return min_range;
+        min_range.resize(2);
+
+        /*
         for (int i = 0; i < nums.size(); ++i) {
             if (nums[i].size() == 0) return min_range;
         }
         // have a map to pick the smallest
         multimap<int, int> curr;
         multimap<int, int> next;
-        min_range.resize(2);
         min_range[0] = nums[0][0];
         min_range[1] = nums[0][0];
         // initialize
@@ -86,6 +88,59 @@ class Solution {
             next.erase(sit);
             if (idx[k] < nums[k].size()) {
                 next.insert(make_pair(nums[k][idx[k]], k));
+            }
+        }
+        */
+
+        // make up a sorted array
+        int size = 0;
+        for (const auto& vec : nums) {
+            size += vec.size();
+        }
+        vector<pair<int, int>> workspace(size);
+        int idx = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            for (int j = 0; j < nums[i].size(); ++j) {
+                workspace[idx] = make_pair(nums[i][j], i);
+                ++ idx;
+            }
+        }
+        // sort it
+        sort(workspace.begin(), workspace.end());
+        // sliding window
+        vector<int> counters(nums.size(), 0);
+        // initialize
+        unsigned left = 0;
+        unsigned right = 0;
+        counters[workspace[left].second] = 1;
+        unsigned num_covers = 1;
+        min_range[0] = workspace[0].first;
+        min_range[1] = workspace[workspace.size()-1].first;
+        if (num_covers == nums.size()) {
+            min_range[1] = min_range[0];
+        }
+        while (right+1 < workspace.size() || num_covers == nums.size()) {
+            if (num_covers < nums.size()) {
+                // move right pointer
+                ++ counters[workspace[right+1].second];
+                if (counters[workspace[right+1].second] == 1) {
+                    ++ num_covers;
+                }
+                ++ right;
+            } else {
+                // move left pointer to get smaller range
+                -- counters[workspace[left].second];
+                if (counters[workspace[left].second] == 0) {
+                    -- num_covers;
+                }
+                ++ left;
+            }
+            if (num_covers == nums.size()) {
+                // valid cover
+                if (workspace[right].first - workspace[left].first < min_range[1] - min_range[0]) {
+                    min_range[1] = workspace[right].first;
+                    min_range[0] = workspace[left].first;
+                }
             }
         }
         return min_range;
